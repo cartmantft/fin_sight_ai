@@ -1,0 +1,23 @@
+# Node.js
+node_modules/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Environment variables
+*.env
+
+# Next.js
+.next/
+out/
+
+# VSCode
+.vscode/

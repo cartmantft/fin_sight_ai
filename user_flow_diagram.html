@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용자 흐름 다이어그램</title>
+    <style>
+        body { font-family: sans-serif; }
+    </style>
+</head>
+<body>
+    <h1>FinSight AI - 사용자 흐름 다이어그램</h1>
+    <pre class="mermaid">
+graph TD
+    A[로그인] --> B(메인 대시보드);
+    B --> C{자료 탐색/관리};
+    B --> D{새 자료 등록};
+    B --> E{스케줄 설정};
+
+    C --> F[검색창 입력];
+    F --> G[검색 결과 확인];
+    G --> H[요약 결과 상세 보기];
+    C --> I[폴더/태그 선택];
+    I --> J[아카이브된 자료 목록 확인];
+    J --> H;
+    H --> K[메모 추가/수정];
+    H --> L[폴더 이동];
+
+    D --> M{입력 방식 선택};
+    M -- URL --> N[URL 입력 및 설정];
+    M -- PDF --> O[PDF 업로드 및 설정];
+    M -- YouTube --> P[YouTube 링크 입력 및 설정];
+    N --> Q([요약 실행 요청]);
+    O --> Q;
+    P --> Q;
+    Q --> R{백그라운드 처리};
+    R --> B;
+
+    E --> S[스케줄 목록 확인];
+    S --> T[새 스케줄 추가 / 기존 스케줄 수정];
+    T --> U[스케줄 상세 설정 입력];
+    U --> V([스케줄 저장]);
+    V --> W{백그라운드 스케줄러 등록};
+    W --> S;
+    S --> X[스케줄 삭제];
+    X --> S;
+
+    Y{자동 스케줄 실행} --> Z{새 콘텐츠 감지};
+    Z --> R;
+
+    subgraph "수동 자료 처리"
+        direction LR
+        D --> M --> N & O & P --> Q --> R
+    end
+
+    subgraph "자동 자료 처리 (스케줄)"
+        direction LR
+        Y --> Z --> R
+    end
+
+    subgraph "자료 조회 및 활용"
+        direction LR
+        B --> C --> F & I --> G & J --> H --> K & L
+    end
+
+    subgraph "스케줄 관리"
+        direction LR
+        E --> S --> T & X --> U --> V --> W
+    end
+    </pre>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
