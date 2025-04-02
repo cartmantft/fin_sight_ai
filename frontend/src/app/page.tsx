@@ -2,18 +2,24 @@
 
 import { useState, useEffect } from 'react';
 
+async function fetchData() {
+  const response = await fetch('http://localhost:8000/');
+  const data = await response.json();
+  return data.message;
+}
+
 export default function Home() {
   const [message, setMessage] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('http://localhost:8000/');
-      const data = await response.json();
-      setMessage(data.message);
+    async function loadData() {
+      const fetchedMessage = await fetchData();
+      setMessage(fetchedMessage);
     }
-    fetchData();
+
+    loadData();
   }, []);
 
   const handleSubmit = async (e: any) => {
@@ -26,7 +32,6 @@ export default function Home() {
       body: JSON.stringify({ name, description }),
     });
     const data = await response.json();
-    setMessage(data.message);
   };
 
   return (

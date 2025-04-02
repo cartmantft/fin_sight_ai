@@ -1,0 +1,1 @@
+- This project uses the 'finsight-backend' Anaconda virtual environment.
